@@ -1,12 +1,22 @@
 'use strict';
 
-let money;
-let income;
-let addExpenses;
-let deposit;
-let mission;
-let period;
+let money = 123456789000000;
+let income = 'фриланс';
+let addExpenses = 'Интернет, Такси, Коммуналка';
+let deposit = true;
+let mission = 1000000;
+let period = 6;
 
-alert('Многие хотели разобраться в github, а некоторые даже хотели');
+console.log(typeof(money));
+console.log(typeof(income));
+console.log(typeof(deposit));
 
-console.log('Сообщение в консоли');
+console.log(addExpenses.length);
+
+console.log('Период равен', period, 'месяцев');
+console.log('Цель заработать', mission, 'биткоинов');
+
+console.log(addExpenses.toLowerCase().split(', '));
+
+let budgetDay = money/30;
+console.log(budgetDay);
