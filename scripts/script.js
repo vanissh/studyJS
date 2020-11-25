@@ -47,7 +47,7 @@ const getExpensesMonth = function(){
     return sum;
 };
 
-let expensesAmount = getExpensesMonth();
+const expensesAmount = getExpensesMonth();
 
 console.log('Сумма обязательных расходов за месяц:',
 expensesAmount,'рублей');
