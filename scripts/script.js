@@ -79,9 +79,9 @@ console.log('Бюджет на день:', Math.floor(budgetDay, 1),'рубле�
 const getStatusIncome = function(){
 if (budgetDay > 1200){
     return('У Вас высокий уровень дохода!');
-} else if(budgetDay > 600) {
+} else if(budgetDay > 600 && budgetDay <=1200) {
     return('У Вас средний уровень дохода!');
-} else if(budgetDay > 0){
+} else if(budgetDay > 0 && budgetDay <=600){
     return('К сожалению, Ваш уровень дохода ниже среднего =(');
 } else {
     return('Что-то пошло не так');
