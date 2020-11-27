@@ -5,16 +5,6 @@ const isNumber = function(n){
 };
 
 let money;
-const income = 'фриланс';
-const addExpenses = prompt('Перечислите возможные расходы за' +
-'рассчитываемый период через запятую','Квартплата, проездной, кредит');
-const deposit = confirm('Есть ли у Вас депозит в банке?');
-const mission = 1000000;
-const period = 6;
-
-let expenses = [];
-let number = [];
-
 const start = function(){
     do {
         money = prompt('Ваш доход за месяц?');
@@ -22,69 +12,103 @@ const start = function(){
 };
 start();
 
-const showTypeOf = function(data){
-    console.log(data, typeof(data));
-};
+const appData = {
+    income: {},
+    addIncome: [],
+    expenses: {},
+    addExpenses: [],
+    deposit: false,
+    mission: 1000000,
+    period: 6,
+    budget: +money,
+    budgetDay: 0,
+    budgetMonth: 0,
+    expensesMonth: 0,
 
-showTypeOf(money);
-showTypeOf(income);
-showTypeOf(deposit);
+    asking: function() {
 
-console.log(addExpenses.toLowerCase().split(', '));
+        let addExpenses = prompt('Перечислите возможные расходы за' +
+            'рассчитываемый период через запятую','Квартплата, проездной, кредит');
+        this.addExpenses = addExpenses.toLowerCase().split(', ');
+        this.deposit = confirm('Есть ли у Вас депозит в банке?');
 
-const getExpensesMonth = function(){
-    let sum = 0;
-    for(let i = 0; i < 2; i++){
+        let sum;
 
-        expenses[i] = prompt('Введите обязательную стaтью расходов');
+        for (let i = 0; i < 2; i++) {
+            const question = prompt('Какие обязательные ежемесячные расходы у вас есть?');
+            do {
+            sum = prompt('Во сколько это обойдется?');
+            } while (isNaN(sum));
+            appData.expenses[question] = sum;
+        }
+        return +sum;
+    },
 
-        do {
-            number[i] = prompt('Во сколько Вам это обойдется?');
-        } while (!isNumber(number[i]));
-        sum += +number[i];
+    getExpensesMonth: function(){
 
-    }
-    return sum;
-};
+        let sum1 = 0;
+        
+        for (let key in appData.expenses){
+        sum1 += +appData.expenses[key];
+        }
+        return sum1;
+    },
 
-const expensesAmount = getExpensesMonth();
+    getBudget: function(){
 
-console.log('Сумма обязательных расходов за месяц:',
-expensesAmount,'рублей');
+        this.budgetMonth = this.budget - this.expensesMonth;  
+        this.budgetDay = this.budgetMonth/30;
+    },
 
-const getAccumulatedMonth = function(m){
-    return m - expensesAmount;
-};
+    getTargetMonth: function(){
 
-const accumulatedMonth = getAccumulatedMonth(money);
+        return this.mission/this.budgetMonth;
+    },
+    
+    getStatusIncome: function(){
 
-const getTargetMonth = function(mis){
-    return mis/accumulatedMonth;
-};
-const targetMonth = Math.ceil(getTargetMonth(mission),1);
+        if (this.budgetDay > 1200){
+            return('У Вас высокий уровень дохода!');
+        } else if(this.budgetDay > 600 && this.budgetDay <=1200) {
+            return('У Вас средний уровень дохода!');
+        } else if(this.budgetDay > 0 && this.budgetDay <=600){
+            return('К сожалению, Ваш уровень дохода ниже среднего =(');
+        } else {
+            return('Что-то пошло не так');
+        }
 
-const checkAim = function(){
-    if(targetMonth > 0){
-        console.log('Цель будет достигнута за', targetMonth,' месяцев');
+    },
+
+    checkAim: function(){
+
+    if(this.getTargetMonth() > 0){
+        console.log('Цель будет достигнута за', 
+        Math.ceil(this.getTargetMonth(), 1),'месяцев');
     } else {
         console.log('Цель не будет достигнута');
     }
+    },
+    
+    outputData : function(){
+        console.log('Наша программа включает в себя данные:');
+        for(let key in appData) {
+            console.log(key);
+            console.log(appData[key]);
+        }
+    }
 };
 
-checkAim();
+appData.asking();
 
-const budgetDay = accumulatedMonth/30;
-console.log('Бюджет на день:', Math.floor(budgetDay, 1),'рублей');
+appData.expensesMonth = appData.getExpensesMonth();
 
-const getStatusIncome = function(){
-if (budgetDay > 1200){
-    return('У Вас высокий уровень дохода!');
-} else if(budgetDay > 600 && budgetDay <=1200) {
-    return('У Вас средний уровень дохода!');
-} else if(budgetDay > 0 && budgetDay <=600){
-    return('К сожалению, Ваш уровень дохода ниже среднего =(');
-} else {
-    return('Что-то пошло не так');
-}
-};
-console.log(getStatusIncome());
+appData.getBudget();
+
+console.log('Сумма обязательных расходов за месяц:',
+appData.expensesMonth,'рублей');
+
+appData.checkAim();
+
+console.log(appData.getStatusIncome());
+
+appData.outputData();
