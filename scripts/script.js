@@ -38,7 +38,7 @@ const appData = {
             } while (+this.itemIncome === parseInt(this.itemIncome));
 
             do {
-                this.cashIncome = prompt('Сколько в месяц Вы на этом зарабатываете?'); //здесь
+                this.cashIncome = prompt('Сколько в месяц Вы на этом зарабатываете?');
             } while (!isNumber(this.cashIncome));
 
             appData.income[this.itemIncome] = this.cashIncome;
