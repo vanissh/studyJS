@@ -71,6 +71,12 @@ const appData = {
     addExpensesBlock: function(){
 
         let cloneExpensesItem = expensesItems[0].cloneNode(true);
+        let cloneInputs = cloneExpensesItem.querySelectorAll('input');
+
+        cloneInputs.forEach(function(item){
+        item.value = null;
+        });
+
         plusExpensesButton.before(cloneExpensesItem);
         expensesItems = document.querySelectorAll('.expenses-items');
 
@@ -92,6 +98,12 @@ const appData = {
     addIncomeBlock: function(){
 
         let cloneIncomeItem = incomeItems[0].cloneNode(true);
+        let cloneInputs = cloneIncomeItem.querySelectorAll('input');
+
+        cloneInputs.forEach(function(item){
+        item.value = null;
+        });
+
         plusIncomeButton.before(cloneIncomeItem);
         incomeItems = document.querySelectorAll('.income-items'); 
         
@@ -220,11 +232,12 @@ const appData = {
     },
 };
 
-if(salaryAmount.value === ''){
-    startButton.disabled = true;
-} else { 
-    startButton.disabled = false;
-}
+
+startButton.disabled = true;
+salaryAmount.addEventListener('input',function(){
+    startButton.disabled = salaryAmount.value.trim() === '';
+});
+
 
 startButton.addEventListener('click', appData.start);
 plusExpensesButton.addEventListener('click', appData.addExpensesBlock);
