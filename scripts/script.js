@@ -124,7 +124,7 @@ const appData = {
         targetMonthValue.value = Math.ceil(appData.getTargetMonth());
         
 
-        periodSelect.addEventListener('change', function(){
+        periodSelect.addEventListener('input', function(){
             incomePeriodValue.value = appData.calcPeriod();
         });
 
@@ -222,14 +222,16 @@ const appData = {
 
 if(salaryAmount.value === ''){
     startButton.disabled = true;
+} else { 
+    startButton.disabled = false;
 }
 
 startButton.addEventListener('click', appData.start);
 plusExpensesButton.addEventListener('click', appData.addExpensesBlock);
 plusIncomeButton.addEventListener('click', appData.addIncomeBlock);
 
-periodSelect.oninput = function(){
+periodSelect.addEventListener('change',function(){
     periodAmount.textContent = periodSelect.value;
-};
+});
 
 appData.checkAim();
