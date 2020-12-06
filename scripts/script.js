@@ -132,7 +132,7 @@ const appData = {
 
     letNumbersOnly: function(arr){
         arr.forEach(function(item){
-            item.addEventListener('keyup', function(){
+            item.addEventListener('input', function(){
             this.value = this.value.replace(/[^\d]/g, '');
         });
         });    
@@ -140,7 +140,7 @@ const appData = {
 
     letWords: function(arr){
         arr.forEach(function(item){
-            item.addEventListener('keyup', function(){
+            item.addEventListener('input', function(){
             this.value = this.value.replace(/[^\А-я\ё\s\W]/gi, '');
         });
         });    
