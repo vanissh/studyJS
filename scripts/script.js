@@ -37,6 +37,9 @@ const periodSelect = document.querySelector('.period-select');
 let incomeItems = document.querySelectorAll('.income-items');
 let periodAmount = document.querySelector('.period-amount');
 
+let inputNumber = document.querySelectorAll('[placeholder = "Сумма"]');
+let inputWord = document.querySelectorAll('[placeholder = "Наименование"]');
+
 const appData = {
     income: {},
     incomeMonth: 0,
@@ -54,7 +57,7 @@ const appData = {
     expensesMonth: 0,
     
     start: function(){
-
+        
         appData.budget = parseInt(salaryAmount.value);
 
         appData.getExpenses();
@@ -63,7 +66,7 @@ const appData = {
         appData.getBudget();
         appData.getAddExpenses();
         appData.getAddIncome();
-
+        
         appData.showResult();
 
     },
@@ -77,7 +80,16 @@ const appData = {
         item.value = null;
         });
 
+        
+
         plusExpensesButton.before(cloneExpensesItem);
+        
+        inputNumber = document.querySelectorAll('[placeholder = "Сумма"]');
+        inputWord = document.querySelectorAll('[placeholder = "Наименование"]');
+
+        appData.letNumbersOnly(inputNumber);
+        appData.letWords(inputWord);
+
         expensesItems = document.querySelectorAll('.expenses-items');
 
         if(expensesItems.length === 3){
@@ -103,13 +115,35 @@ const appData = {
         cloneInputs.forEach(function(item){
         item.value = null;
         });
-
         plusIncomeButton.before(cloneIncomeItem);
+
+        inputNumber = document.querySelectorAll('[placeholder = "Сумма"]');
+        inputWord = document.querySelectorAll('[placeholder = "Наименование"]');
+
+        appData.letNumbersOnly(inputNumber);
+        appData.letWords(inputWord);
+
         incomeItems = document.querySelectorAll('.income-items'); 
         
         if(incomeItems.length === 3){
             plusIncomeButton.remove();
         }
+    },
+
+    letNumbersOnly: function(arr){
+        arr.forEach(function(item){
+            item.addEventListener('keyup', function(){
+            this.value = this.value.replace(/[^\d]/g, '');
+        });
+        });    
+    },
+
+    letWords: function(arr){
+        arr.forEach(function(item){
+            item.addEventListener('keyup', function(){
+            this.value = this.value.replace(/[^\А-я\ё\s\W]/gi, '');
+        });
+        });    
     },
 
     getIncome: function(){
@@ -238,6 +272,8 @@ salaryAmount.addEventListener('input',function(){
     startButton.disabled = salaryAmount.value.trim() === '';
 });
 
+appData.letNumbersOnly(inputNumber);
+appData.letWords(inputWord);
 
 startButton.addEventListener('click', appData.start);
 plusExpensesButton.addEventListener('click', appData.addExpensesBlock);
