@@ -254,25 +254,29 @@ const appData = {
         plusExpensesButton.hidden = false;
         plusIncomeButton.hidden = false;
 
+        this.budget = 0;
+        this.budgetDay = 0;
+        this.budgetMonth = 0;
+
         periodSelect.value = 0;
         periodSelect.addEventListener('input', () => {
             incomePeriodValue.value = 0;
         });
-        
-        for(let key in this.expenses){
-            this.expenses[key] = null;
-        }
-        for(let key in this.incomes){
-            this.expenses[key] = null;
-        }
-        this.getBudget();
-        budgetMonthValue.value = this.budgetMonth;
+
+        this.expenses = {};
+        this.income = {};
+        this.addExpenses = [];
+        this.addIncome = [];
+
+        this.incomeMonth = 0;
+        this.expensesMonth = 0;
 
         allInputs.forEach(function(item){
             item.value = null;
+            
         }); 
 
-        
+        console.log(appData);
     },
 
     // checkAim: function(){
