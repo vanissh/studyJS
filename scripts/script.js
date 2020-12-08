@@ -258,17 +258,21 @@ const appData = {
         periodSelect.addEventListener('input', () => {
             incomePeriodValue.value = 0;
         });
-
-        allInputs.forEach(function(item){
-            item.value = null;
-        }); 
-
+        
         for(let key in this.expenses){
             this.expenses[key] = null;
         }
         for(let key in this.incomes){
             this.expenses[key] = null;
         }
+        this.getBudget();
+        budgetMonthValue.value = this.budgetMonth;
+
+        allInputs.forEach(function(item){
+            item.value = null;
+        }); 
+
+        
     },
 
     // checkAim: function(){
@@ -336,7 +340,6 @@ clearButton.addEventListener('click', function(){
     });
     clearButton.style.display = 'none';
     clearButton.disabled = true;
-    startButton.disabled = false;
     startButton.style.display = 'block';
 });
 
