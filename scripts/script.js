@@ -275,8 +275,6 @@ const appData = {
             item.value = null;
             
         }); 
-
-        console.log(appData);
     },
 
     // checkAim: function(){
