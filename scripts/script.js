@@ -93,7 +93,6 @@ const appData = {
 
         allInputs = document.querySelectorAll('input');
         expensesItems = document.querySelectorAll('.expenses-items');
-        console.log(expensesItems);
 
         if(expensesItems.length === 3){
             plusExpensesButton.hidden = true;
@@ -129,7 +128,6 @@ const appData = {
 
         allInputs = document.querySelectorAll('input');
         incomeItems = document.querySelectorAll('.income-items'); 
-        console.log(incomeItems);
         
         if(incomeItems.length === 3){
             plusIncomeButton.hidden = true;
@@ -250,6 +248,9 @@ const appData = {
         plusIncomeButton.hidden = false;
 
         periodSelect.value = 0;
+        periodSelect.addEventListener('input', () => {
+            incomePeriodValue.value = 0;
+        });
 
         allInputs.forEach(function(item){
             item.value = null;
