@@ -73,7 +73,6 @@ const appData = {
 
     },
 
-    
     addExpensesBlock: function(){
 
         let cloneExpensesItem = expensesItems[0].cloneNode(true);
@@ -143,9 +142,13 @@ const appData = {
             }
         });
 
-        for(let key in appData.income){
-            appData.incomeMonth += +appData.income[key];
+        const calcAmount = () => {
+            for(let key in this.income){
+            this.incomeMonth += +this.income[key];
         }
+        };
+        calcAmount.call(appData);
+        
     },
     
     letNumbersOnly: function(arr){
@@ -201,10 +204,14 @@ const appData = {
 
         let sum = 0;
 
-        for (let key in appData.expenses){
-        sum += +appData.expenses[key];
+        const calcAmount = () => {
+            for (let key in this.expenses){
+        sum += +this.expenses[key];
         }
-        appData.expensesMonth = +sum;
+        this.expensesMonth = +sum;
+        };
+        calcAmount.call(appData);
+        
     },
 
     getBudget: function(){
