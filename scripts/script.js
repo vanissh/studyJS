@@ -300,7 +300,9 @@ class AppData {
 
                     alert('Введите корректное значение в поле "Проценты"');
                     depositPercent.value = '';
-                    } else {
+                    startButton.disabled = true;
+                } else {
+                    startButton.disabled = false;
                     this.percentDeposit = depositPercent.value;
                 }
                 });
